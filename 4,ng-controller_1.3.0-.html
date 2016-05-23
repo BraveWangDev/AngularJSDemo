@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<body>
+<header>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="angular-1.3.0.js"></script>
+</header>
+
+<!-- 老版本angular-1.3.0及以前 -->
+<div ng-app="">
+
+    <!-- 绑定controller方法 -->
+    <div ng-controller = "firstController">
+        {{title}}
+    </div>
+
+</div>
+
+<!-- 1.3.0及以前可使用的定义controller的方式 -->
+<script type="text/javascript">
+
+    // Controller方法
+    function firstController($scope){
+        $scope.title="angularJS controller";
+    }
+
+</script>
+
+</body>
+</html>

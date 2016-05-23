@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>无标题文档</title>
+        <script type="text/javascript" src="angular.min.js"></script>
+    </head>
+
+    <body ng-app="myApp">
+
+        <form ng-controller="DemoController">
+
+            <h2>Which is your favorite?</h2>
+
+            <label ng-repeat="name in names">
+                {{name}}
+                <input type="radio"
+                       ng-value="name"
+                       ng-model="my.favorite">
+            </label>
+
+            <br>
+            <br>
+
+            <div>You chose {{my.favorite}}</div>
+        </form>
+
+        <script>
+
+            angular.module('myApp', [])
+
+                .controller('DemoController', ['$scope', function($scope) {
+
+                        $scope.names = ['pizza', 'unicorns', 'robots'];//数组
+                        $scope.my = { favorite: 'unicorns' };//对象
+
+                }]);
+
+        </script>
+    </body>
+</html>

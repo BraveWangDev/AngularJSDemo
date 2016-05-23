@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>无标题文档</title>
+    <style>
+        .box{ width:200px; height:200px; background:lightskyblue; transition:1s all;}
+
+        .box.ng-hide-add{
+            opacity: 1;
+        }
+        .box.ng-hide-add-active{
+            opacity: 0;
+        }
+        .box.ng-hide-remove{
+            opacity: 0;
+        }
+        .box.ng-hide-remove-active{
+            opacity: 1;
+        }
+
+    </style>
+    <script src="angular.min.js"></script>
+    <script src="http://cdn.bootcss.com/angular.js/1.2.9/angular-animate.min.js"></script>
+</head>
+
+<body>
+    <div ng-controller="firstController">
+
+        <input type="checkbox" ng-model="bBtn">
+        <div ng-show ="bBtn" class="box"></div>
+
+    </div>
+
+    <script>
+
+        var myApp = angular.module('myApp', ['ngAnimate']);
+
+        myApp.controller('firstController', ['$scope', function($scope){
+
+            $scope.bBtn = true;
+
+        }]);
+
+    </script>
+</body>
+</html>

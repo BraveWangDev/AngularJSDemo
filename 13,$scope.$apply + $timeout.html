@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>无标题文档</title>
+        <script type="text/javascript" src="angular.min.js"></script>
+    </head>
+    <body>
+
+      <div ng-app="myApp">
+
+          <div ng-controller="firstController">
+
+            {{name}} {{age}}
+
+          </div>
+
+      </div>
+
+      <script type="text/javascript">
+
+          var app = angular.module("myApp", []);
+
+          app.controller('firstController',function($scope, $timeout){
+
+              <!-- 初始赋值 -->
+              $scope.name = 'wangzhen';
+              $scope.age = '27';
+
+             <!-- 使用js或JQery的非Angular语法,需要使用$scope.$apply传递model变化 -->
+             setTimeout(function(){
+                 $scope.$apply(function(){
+                     $scope.name='Brave';
+                 });
+             }, 2000);
+
+              <!-- $timeout不需要$scope.$apply就可以传递model变化实现更新-->
+              $timeout(function(){
+                  $scope.age='28';
+              }, 2000);
+
+          });
+
+      </script>
+       
+    </body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>service-config-provider</title>
+    <script src="angular.min.js"></script>
+</head>
+
+<body ng-app="myApp">
+
+<div ng-controller="firstController">
+    {{name}}
+</div>
+
+<script>
+
+    var app = angular.module('myApp',[]);
+
+    <!-- config中配置$provide - provider独有 -->
+//    在应用开始前对service进行配置的时候就需要使用到provider()
+    app.config(function($provide){
+
+        $provide.provider('providerServices01', function(){
+
+            this.$get = function(){
+
+                return { message:'this is providerServices01' }
+
+            }
+
+        });
+
+        $provide.provider('providerServices02',function(){
+
+            this.$get = function(){
+
+                var _name='';
+                var service={};
+
+                service.setName=function(name){
+                    _name=name;
+                }
+
+                service.getName=function(){
+                   return _name;
+                }
+
+                return service;
+
+            }
+
+        });
+
+    })
+
+    console.log(app);
+
+    app.controller('firstController',['$scope', 'providerServices01', 'providerServices02',
+        function($scope, providerServices01, providerServices02){
+
+        console.log(providerServices01);
+
+        //赋值和取值
+        providerServices02.setName('BraveWang');
+
+        $scope.name = providerServices02.getName();
+
+        console.log( providerServices02);
+
+    }]);
+
+</script>
+
+</body>
+</html>

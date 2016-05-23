@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>无标题文档</title>
+    <script src="angular.min.js"></script>
+</head>
+
+<body ng-app="myApp">
+
+<div ng-controller="firstController">
+    {{name}}
+</div>
+
+<script>
+
+    var app = angular.module('myApp',[]);
+
+    <!-- module 中配置 provider -->
+    app.provider('providerServices01',function(){
+
+        this.$get=function(){
+            return {
+                message:'this is providerServices01'
+            }
+        }
+
+    });
+
+    <!-- module 中配置 service -->
+//    service()通过构造函数的方式让我们创建service
+    app.service('serviceServices01',function(){
+
+        return {
+            message:'this is serviceServices01'
+        }
+
+    })
+
+    console.log(app);
+
+    app.controller('firstController',['$scope','providerServices01','serviceServices01',function($scope,providerServices01,serviceServices01){
+
+        console.log(providerServices01);
+        console.log(serviceServices01);
+
+        $scope.name='Brave';
+
+    }]);
+
+</script>
+</body>
+</html>

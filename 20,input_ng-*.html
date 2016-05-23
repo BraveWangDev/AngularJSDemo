@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>无标题文档</title>
+        <script type="text/javascript" src="angular.min.js"></script>
+    </head>
+    <body>
+      <div ng-app="myApp">
+
+          <div ng-controller="firstController">
+
+              <!-- checkbox设置ng-model控制下拉框选中 -->
+              <input type="checkbox" ng-model="sel">
+              <select>
+                  <option>11111</option>
+                  <option ng-selected="sel">22222</option>
+              </select>
+              <br>
+              <br>
+
+              <!-- ng-change 变化时触发事件 -->
+              <input type="checkbox" ng-change="change()" ng-model="clik" />{{clik}}
+              <br>
+              <br>
+
+              <!-- 复制 剪切 粘贴 -->
+              <input type="text" value="复制" ng-copy="aaa='按下复制键时执行的事件'">{{aaa}}
+              <input type="text" value="剪切" ng-cut="bbb='按下剪切键时执行的事件'">{{bbb}}
+              <input type="text" value="粘贴" ng-paste="ccc='按下黏贴键时执行的事件'">{{ccc}}
+              <br>
+              <br>
+
+
+              <!--引起表达式或过滤器在页面闪烁的原因:由于javascript操作DOM是等DOM结构加载完成(Dom ready)才回头处理引用的angularJS文件。-->
+              <!-- 未加载完成会闪烁 -->
+              {{text}}
+              <!-- 防止闪烁的2种方式 -->
+              <div ng-bind="text"></div>
+              <div ng-cloak>{{text}}</div>
+              <br>
+              <br>
+
+              <!-- 控制模板编译 -->
+              <div ng-non-bindable>{{text}}</div>
+
+          </div>
+
+      </div>
+
+      <script type="text/javascript">
+
+          var app = angular.module("myApp", []);
+
+          app.controller('firstController',function($scope){
+
+              $scope.text = 'BraveWang';
+
+              $scope.clik = false;
+
+              $scope.change = function(){
+
+                if($scope.clik == true){
+                    alert('选中');
+                }else{
+                    alert('未选中');
+                }
+
+              }
+
+          });
+      </script>
+       
+    </body>
+</html>

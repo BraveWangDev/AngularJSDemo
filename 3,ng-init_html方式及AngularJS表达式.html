@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<header>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="angular.min.js"></script>
+    <title>ng-init_html方式及AngularJS表达式</title>
+</header>
+
+<div ng-app="">
+
+    {{sex}}
+
+    <!-- ng-init是针对ng-app全局的 -->
+    <!-- 初始化一个AngularJS应用程序的数据 -->
+    <div data-ng-init = "sex='男'">
+        {{sex}}
+    </div>
+
+    <!-- 在ng-init标签外部也有效 -->
+    {{sex}}
+
+
+    <!-- 多种ng-init -->
+    <div data-ng-init="q='5';c=3">
+        {{q*c}}
+    </div>
+
+    <!-- 初始多个变量 -->
+    <div data-ng-init = "firstName='王';lastName='振'">
+        {{firstName + lastName}}
+    </div>
+
+    <!-- 初始化一个对象 -->
+    <div ng-app = "" ng-init= "person = {firstName:'王',lastName:'振'}"/>
+        <p>lastName = {{ person.lastName }}</p>
+    </div>
+
+    <!-- 初始化一个数组-->
+    <div ng-app = "" ng-init = "points=[1, 11, 15, 20, 100]">
+        <p>第三个值为 {{points[2]}}</p>
+    </div>
+
+     <!--对象数组-->
+    <div ng-app="" ng-init="countries=[{locale:'en-US',name:'United States'},
+                                    {locale:'en-GB',name:'United Kingdom'},
+                                    {locale:'en-FR',name:'France'}]">
+        <p>第三个值为 {{countries[2].name}}</p>
+    </div>
+
+</div>
+
+</body>
+</html>

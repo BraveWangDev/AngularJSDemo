@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<body>
+<header>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>自定义指令的定义和使用</title>
+	<script src="angular-1.3.0.js"></script>
+	<style type="text/css">
+		.clor{
+			color:blue;
+		}
+	</style>
+</header>
+
+<div ng-app="myApp">
+
+	<div>自定义指令的定义和使用</div>
+	<!-- 使用自定义指令 -->
+    <hello></hello>
+
+</div>
+
+<!-- 创建自定义指令 -->
+<script type="text/javascript">
+
+	var mainView = angular.module("myApp",[]);
+
+	// “E” is for element,
+	// “A” is for attribute,	default
+	// “C” is for class,
+	// “M” is for comment.
+	<!-- 指令的定义 -->
+	mainView.directive("hello",function(){
+
+		return{
+			 restrict:'E',
+			 template:'<div class="clor">数字<strong>创新</strong><span>事业群</span></div>',
+		}
+
+	})
+
+</script>
+
+</body>
+</html>

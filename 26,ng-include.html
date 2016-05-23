@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>ng-include</title>
+    <script type="text/javascript" src="angular.min.js"></script>
+</head>
+
+<body>
+
+    <div ng-app="myApp">
+
+        <div ng-controller="firstController">
+            <div ng-include="'include.html'"></div>
+            <div ng-include="url"></div>
+            <div ng-include="tpl"></div>
+            <div ng-include src="tpl2"></div>
+        </div>
+
+        <!-- 声明内联模板 - tpl.html -->
+        <script type="text/ng-template" id="tpl.html">
+            Content of the template ==> tpl.html
+        </script>
+
+        <!-- 声明内联模板 - tpl2.html -->
+        <script type="text/ng-template" id="tpl2.html">
+            Content of the template ==> tpl2.html
+        </script>
+
+    </div>
+
+    <script type="text/javascript">
+
+        var app = angular.module('myApp',[]);
+
+        app.controller('firstController',['$scope',function($scope){
+
+            $scope.url = 'include.html'; //外部模板
+            $scope.tpl = 'tpl.html';
+            $scope.tpl2 = 'tpl2.html';
+
+        }]);
+
+    </script>
+
+</body>
+</html>

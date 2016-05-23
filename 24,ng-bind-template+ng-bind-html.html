@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>无标题文档</title>
+        <script type="text/javascript" src="angular.min.js"></script>
+        <!-- ng-bind-html要使用angularJS-sanitize插件 -->
+        <script type="text/javascript" src="http://cdn.bootcss.com/angular.js/1.4.0-beta.6/angular-sanitize.min.js"></script>
+    </head>
+    <body>
+
+      <div ng-app="myApp">
+          <div ng-controller="firstController">
+              <!-- 单值绑定 -->
+              <div ng-bind="text"></div>
+              <!-- 多值绑定 -->
+              <div ng-bind-template="{{text}} {{name}}"></div>
+              <!-- 绑定一段Html -->
+              <div ng-bind-html="addHtml"></div>
+          </div>
+      </div>
+
+      <script type="text/javascript">
+
+          var app = angular.module("myApp", ['ngSanitize']);//引入插件
+
+          app.controller('firstController',function($scope){
+                $scope.text='数字创新事业群';
+                $scope.name='Brave';
+                $scope.addHtml='<h2>add Html Content</h2>';
+          });
+
+      </script>
+       
+    </body>
+</html>

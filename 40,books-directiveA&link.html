@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>无标题文档</title>
+    <script src="angular.min.js"></script>
+</head>
+
+<!--http://www.cnblogs.com/mliudong/p/3910193.html-->
+
+<body ng-app="myapp">
+
+    <div ng-controller="bookslist">
+
+        <ul>
+            <!-- ng-repeat : 循环 -->
+            <li ng-repeat="book in books">
+                书名:{{book.title}}  /  作者 : {{book.author}}
+            </li>
+        </ul>
+
+        <button addbook ng-click="addBook()">Add book</button>
+
+    </div>
+
+    <script>
+        var module = angular.module( "myapp", []);
+
+        // Book - service
+        module.service( 'Book', [ '$rootScope', function( $rootScope ) {
+
+            var service = {
+
+                //数据源
+                books: [
+
+                    { title: "Magician", author: "Raymond E. Feist" },
+                    { title: "The Hobbit", author: "J.R.R Tolkien" }
+
+                ],
+
+                //添加方法
+                addBook: function ( book ) {
+                    service.books.push( book );//加入
+                    $rootScope.$broadcast( 'books.update' ); //更新通知
+                }
+            }
+
+            return service;
+
+        }]);
+
+        var ctrl = [ '$scope', 'Book', function( $scope, Book ) {
+
+            //初始
+            $scope.books = Book.books;
+            console.log(Book.books);
+
+            //注册接收广播事件
+            $scope.$on( 'books.update', function( event ) {
+                console.log("进入Book.update");
+                $scope.books = Book.books;
+                $scope.$apply();//注意，没有这一行就不会实现双向绑定 digest
+
+            });
+
+//            $scope.addBook = function() {
+//                Book.addBook( { title: "Star Wars", author: "George Lucas" } );
+//            };
+
+        }];
+
+        // 不能是大写的
+        module.directive("addbook", [ 'Book', function( Book ) {
+            return {
+                restrict: "A",
+                link: function(scope, element, attrs){
+                    element.bind( "click", function() {
+                        alert("click");
+                        Book.addBook( { title: "Star Wars", author: "George Lucas" } );
+                        console.log(Book);
+                    });
+                }
+            };
+        }]);
+
+        module.controller( "bookslist", ctrl );
+
+    </script>
+</body>
+</html>

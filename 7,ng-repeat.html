@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<header>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="angular.min.js"></script>
+</header>
+
+<div ng-app="myApp">
+
+    <!-- repeatController -->
+    <div ng-controller="repeatController">
+        <ul>
+            <!-- ng-repeat : 循环 -->
+            <li ng-repeat="person in persons">
+                姓名：{{person.name}}
+                年龄：{{person.age}}
+            </li>
+        </ul>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+
+  var app = angular.module("myApp",[]);
+
+  <!-- 定义controller-repeatController -->
+  app.controller('repeatController', function($scope){
+      $scope.persons = [
+          {name:'王振', age:'27'},
+          {name:'宋哥', age:'27'},
+          {name:'刘羽', age:'27'}
+      ]
+  });
+
+</script>
+
+</body>
+</html>

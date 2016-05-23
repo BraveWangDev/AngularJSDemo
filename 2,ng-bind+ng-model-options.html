@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<body>
+<header>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="angular.min.js"></script>
+    <title>ng-bind+ng-model-options</title>
+</header>
+
+<div ng-app="">
+
+    Hello AngularJS
+    <p>在输入框中尝试输入：</p>
+    <p>姓名：<input type="text" ng-model="name"></p>
+
+    <!-- 显示会出现问题 -->
+    {{name}}
+
+    <!-- 解决加载显示问题 -->
+    <div ng-bind="name"></div>
+
+    <!--  data-ng-* ==》 ng-* -->
+    <div data-ng-bind="name"></div>
+
+    <!-- 鼠标离开时实现数据双向绑定更新 -->
+    <!--更多关于ng-model-options : http://www.tuicool.com/articles/uyuuYz-->
+    <input type="text" ng-model="name1" ng-model-options="{ updateOn: 'blur' }" />
+    {{name1}}
+
+</div>
+
+</body>
+</html>

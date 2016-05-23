@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Animations</title>
+    <style>
+        .box{ width:200px; height:200px; background:red;}
+    </style>
+    <!-- 引入jquery -->
+    <script src="jquery-1.11.1.js"></script>
+    <script src="angular.min.js"></script>
+    <script src="http://cdn.bootcss.com/angular.js/1.2.9/angular-animate.min.js"></script>
+</head>
+
+<body>
+
+    <div ng-controller="firstController">
+
+        <input type="checkbox" ng-model="bBtn">
+        <div ng-if="bBtn" class="box"></div>
+
+    </div>
+
+    <script>
+
+        var myApp = angular.module('myApp',['ngAnimate']);
+
+        myApp.controller('firstController',['$scope',function($scope){
+
+            $scope.bBtn = false;
+
+        }]);
+
+        // JS方式为CSS添加动画
+        myApp.animation('.box',function(){
+            return{
+                // enter - leave
+                enter:function(element, done){
+                    console.log("enter");
+                    $(element).css({width:0,height:0});
+                    $(element).animate({width:200, height:200}, 2000, done);
+                },
+                leave:function(element, done){
+                    console.log("leave");
+                    $(element).animate({width:0, height:0}, 1000, done);
+                }
+            }
+        });
+
+    </script>
+
+</body>
+</html>

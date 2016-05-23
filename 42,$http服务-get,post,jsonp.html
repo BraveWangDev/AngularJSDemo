@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>无标题文档</title>
+    <script type="text/javascript" src="angular.min.js"></script>
+    <style>
+        table, th , td {
+            border: 1px solid grey;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+        table tr:nth-child(odd) {
+            background-color: #f2f2f2;
+        }
+        table tr:nth-child(even) {
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+<div ng-app="myApp">
+
+    <div ng-controller="studentController">
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Roll No</th>
+                <th>Percentage</th>
+            </tr>
+            <tr ng-repeat="student in students">
+                <td>{{ student.Name }}</td>
+                <td>{{ student.RollNo }}</td>
+                <td>{{ student.Percentage }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <!--<div ng-controller="personController">-->
+        <!--名: <input type="text" ng-model="person.firstName"><br>-->
+        <!--姓: <input type="text" ng-model="person.lastName"><br>-->
+        <!--<br>-->
+        <!--姓名: {{person.firstName + " " + person.lastName}}-->
+    <!--</div>-->
+</div>
+
+<script>
+
+    var app = angular.module("myApp", []);
+
+    //get
+    app.controller("studentController", function($scope, $http) {
+
+        // 1) $http.get
+        $http.get('data.txt')
+            .success(function(data, status, headers, config){
+
+                console.log(data);
+                console.log(status);
+                console.log(headers);
+                console.log(config);//config 对象包含很多信息
+
+                $scope.students = data;
+
+            }).error(function(err, status, headers, config){
+
+            })
+    });
+
+    app.controller("personController", function($scope, $http) {
+
+        // 2)$http.post 采用postJSON方式发送数据(Json)到后台，一般不能接收到
+        // 解决方法 ：在php中使用 $postData=file_get_contents('php://input', true);
+        var postData={text:'这是post的内容'};
+        var config={params:{id:'5',name:'张三'}}
+        $http.post('data1.php',postData,config)
+            .success(function(data) {
+                console.log(data);
+            })
+            .error(function(data){
+                //错误代码
+            });
+
+        // 3)jsonp
+        myUrl ="http://www.phonegap100.com/appapi.php?a=getPortalList&catid=20&page=1&callback=JSON_CALLBACK";
+        $http.jsonp(myUrl)
+            .success(function(data){
+                console.log(data);
+            })
+            .error(function(){
+                alert('http-jsonp失败');
+            });
+
+    });
+
+</script>
+
+</body>
+</html>

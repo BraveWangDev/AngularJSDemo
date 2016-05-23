@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<body>
+<header>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="angular.min.js"></script>
+    <title>ng-app+ng-model+{{}}</title>
+</header>
+
+<!-- ng-app不可缺少 ： 标志angular应用开始 定义根元素 初始化AngularJS应用程序 -->
+<div ng-app="">
+
+    Hello AngularJS
+    <p>在输入框中尝试输入：</p>
+
+    <!-- 设置模型变量 -->
+    <p>姓名：<input type="text" ng-model="name"></p>
+
+    <!-- 可能会显示{{name}}(闪烁) -->
+    {{name}}
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>无标题文档</title>
+    <script src="angular.min.js"></script>
+
+</head>
+
+<body ng-app="myApp">
+
+<div ng-controller="firstController">
+    {{name}}
+</div>
+
+<script>
+
+    // 持久化 分离数据源 共享数据
+    var app = angular.module('myApp', [], function($provide){
+
+        <!-- 返回需要this.$get函数 可使用config传入(唯一) -->
+        // 内置服务不可以注入
+        $provide.provider('providerServices01',function(){
+            this.$get = function(){
+                return 'this is providerServices01';
+            }
+        });
+        $provide.provider('providerServices01',function(){
+            this.$get=function(){
+                return { message:'this is providerServices01' }
+            }
+        });
+
+//        返回一个包含service方法和数据的对象
+        $provide.factory('factoryServices01', function($window){
+            return { message:'this is factoryServices01'}
+        });
+        $provide.factory('factoryServices02', function(){
+            return 'this is factoryServices02';
+        });
+
+        $provide.service('serviceServices01', function($window){
+            return { message:'this is serviceServices01'}
+        })
+
+    });
+
+    console.log(app);
+
+    app.controller('firstController', ['$scope', 'providerServices01', 'factoryServices01', 'factoryServices02', 'serviceServices01',
+        function($scope, providerServices01, factoryServices01, factoryServices02, serviceServices01){
+
+        console.log(providerServices01);
+
+        console.log(factoryServices01);
+        console.log(factoryServices02);
+
+        console.log(serviceServices01);
+
+        $scope.name='Brave';
+
+    }]);
+
+</script>
+</body>
+</html>

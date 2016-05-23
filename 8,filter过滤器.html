@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<body>
+<header>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="angular.min.js"></script>
+</header>
+
+<div ng-app="myApp">
+
+    <!-- 过滤器 uppercase lowercase currency -->
+    <div ng-controller="firstController">
+
+        <p>在输入框中尝试输入：</p>
+        <p>大写uppercase ：<input type="text" ng-model="firstName"></p>
+        <p>小写lowercase ：<input type="text" ng-model="lastName"></p>
+        <p>货币currency ：<input type="text" ng-model="price"></p>
+        <!-- 大写 -->
+        {{firstName | uppercase }}
+        <br>
+        <!-- 小写 -->
+        {{lastName | lowercase}}
+        <br>
+        <!-- 货币格式 -->
+        {{price | currency}}
+
+    </div>
+
+    <div ng-controller="secondController">
+
+        <!-- 排序 -->
+        <p>排序循环：</p>
+        <ul>
+            <li ng-repeat="x in names | orderBy:'country'">
+                {{ x.name + ', ' + x.country }}
+            </li>
+        </ul>
+
+        <!-- 过滤器 filter : 从数组选择子集-->
+        <p>输入过滤： </p>
+        <p><input type="text" ng-model="name"></p>
+        <ul>
+            <li ng-repeat="x in names | filter:name | orderBy:'country'">
+                {{ (x.name | uppercase) + ', ' + x.country }}
+            </li>
+        </ul>
+
+    </div>
+
+</div>
+
+
+<script type="text/javascript">
+
+  var app = angular.module("myApp",[]);
+
+  app.controller('firstController', function($scope){
+
+      $scope.firstName = "wang";
+      $scope.lastName = "BRAVE";
+      $scope.price = "99999999";
+
+  });
+
+  app.controller('secondController',function($scope){
+
+      $scope.names = [
+          {name:'AAA', country:'Norway'},
+          {name:'bbb', country:'Sweden'},
+          {name:'CCC', country:'Denmark'}
+      ];
+
+  });
+
+</script>
+
+</body>
+</html>
